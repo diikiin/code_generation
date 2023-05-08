@@ -1,0 +1,11 @@
+server:
+  port: ${port:8080}
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: ${DATASOURCE_USERNAME:postgres}
+    password: ${DATASOURCE_PASSWORD:root}
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/code_generation}
+  jpa:
+    open-in-view: false
