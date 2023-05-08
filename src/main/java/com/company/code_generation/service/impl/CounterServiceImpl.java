@@ -1,6 +1,7 @@
 package com.company.code_generation.service.impl;
 
 import com.company.code_generation.entity.Counter;
+import com.company.code_generation.model.CounterDto;
 import com.company.code_generation.repository.CounterRepository;
 import com.company.code_generation.service.CounterService;
 import lombok.RequiredArgsConstructor;
@@ -22,16 +23,17 @@ public class CounterServiceImpl implements CounterService {
      * then it returns 'a0' repeated lastCode.length() / 2 + 1 times.
      * If not, then it divides last code to char array
      * and replace char with next char where it needed and return new code.
+     *
      * @return new code
      */
     @Override
-    public String getCode() {
+    public CounterDto getCode() {
         String lastCode = counterRepository.findTopByOrderByIdDesc().getCode();
 
         return saveNewCode(lastCode);
     }
 
-    private String saveNewCode(String lastCode) {
+    private CounterDto saveNewCode(String lastCode) {
         String newCode;
 
         if (!lastCode.equals("z9".repeat(lastCode.length() / 2))) {
@@ -69,6 +71,6 @@ public class CounterServiceImpl implements CounterService {
 
         counterRepository.save(new Counter(newCode));
 
-        return newCode;
+        return new CounterDto(newCode);
     }
 }
